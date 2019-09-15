@@ -56,7 +56,7 @@ xception_65 = xception.xception_65(pretrained=True)
 
 ##### Example: Classification
 
-In this case, you must be specified the argument `num_classes`, like this:
+In this case, `num_classes` must be specified, like this:
 ```
 import xception
 model = xception.xception_65(num_classes=8, pretrained=True)
