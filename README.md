@@ -3,7 +3,7 @@ A PyTorch implementation of Xception
 
 ### Overview
 
-This repository is a PyTorch reimplementation of [Xception](https://arxiv.org/abs/1610.02357), and almost is an op-to-op translation from the [official implementation](https://github.com/tensorflow/models/blob/master/research/deeplab/core/xception.py). Moreover, we provide a function to convert the official TensorFlow pretrained weights(which can be download in [here](https://github.com/tensorflow/models/blob/master/research/deeplab/g3doc/model_zoo.md)) to PyTorch weights, hence it is very convenient to inferece or finetune your own datasets.
+This repository is a PyTorch reimplementation of [Xception](https://arxiv.org/abs/1610.02357), and almost is an op-to-op translation from the [official implementation](https://github.com/tensorflow/models/blob/master/research/deeplab/core/xception.py). Moreover, we provide a function to convert the official TensorFlow pretrained weights(which can be download in [here](https://github.com/tensorflow/models/blob/master/research/deeplab/g3doc/model_zoo.md)) to PyTorch weights, hence it is very convenient to infer or finetune your own datasets.
 
 As mentioned in the official version, the Xception implemented here made a few more changes:
 1. Fully convolutional: All the max-pooling layers are replaced with separable
