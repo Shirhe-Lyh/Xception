@@ -22,9 +22,9 @@ At the moment, you can easily:
 
 ##### Convert pretrained weights
 
-First, you need to download the **official pretrained weights** at the bottom of the [page](https://github.com/tensorflow/models/blob/master/research/deeplab/g3doc/model_zoo.md). We recomend you to download **xception_65_imagenet**, otherwise, you have to modify a few words in xception_test.py. Then, run the following command:
+First, you need to download the **official pretrained weights** at the bottom of the [page](https://github.com/tensorflow/models/blob/master/research/deeplab/g3doc/model_zoo.md). There are three pretrained models:  **xception_xx_imagenet**, where xx is one of [**41**, **65**, **71**]. Then, run the following command:
 ```
-python3 xception_test.py --tf_checkpoint_path "xxxx.....xxx/model.ckpt"
+python3 xception_test.py --tf_checkpoint_path "xxxx.....xxx/model.ckpt" --model_name "xception_xx"
 ```
 You will find a new created folder 'pretrained_models' where the output pytorch model file is stored, and print a few lines in console like this:
 ```
