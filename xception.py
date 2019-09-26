@@ -85,12 +85,14 @@ class Conv2dSame(torch.nn.Module):
         self._rate = rate
         self._without_padding = stride == 1
         if self._without_padding:
+            # Here, we assume that floor(padding) = padding
+            padding = (kernel_size - 1) * rate // 2
             self._conv = torch.nn.Conv2d(in_channels, 
                                          out_channels,
                                          kernel_size=kernel_size,
                                          stride=1,
                                          dilation=rate,
-                                         padding=kernel_size//2,
+                                         padding=padding,
                                          bias=False)
         else:
             self._conv = torch.nn.Conv2d(in_channels,
@@ -156,14 +158,16 @@ class SeparableConv2dSame(torch.nn.Module):
         
         out_channels_depthwise = in_channels * depth_multiplier
         if self._without_padding:
-            # Separable convolution for licit_paddipadding 'SAME'
+            # Separable convolution for padding 'SAME'
+            # Here, we assume that floor(padding) = padding
+            padding = (kernel_size - 1) * rate // 2
             self._conv_depthwise = torch.nn.Conv2d(in_channels, 
                                                    out_channels_depthwise,
                                                    kernel_size=kernel_size, 
                                                    stride=stride, 
                                                    dilation=rate,
                                                    groups=in_channels,
-                                                   padding=kernel_size//2,
+                                                   padding=padding,
                                                    bias=False,
                                                    **kwargs)
         else:
