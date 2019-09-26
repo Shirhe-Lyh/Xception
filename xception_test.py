@@ -26,6 +26,8 @@ parser.add_argument('--output_dir', type=str, default='./pretrained_models',
                     help='Where the output pytorch model file is stored.')
 parser.add_argument('--image_path', type=str, default='./test/cat.jpg',
                     help='Path to a test image.')
+parser.add_argument('--model_name', type=str, default='xception_65',
+                    help='One of [xception_41, xception_65, xception_71].')
 args = parser.parse_args()
 
 
@@ -51,6 +53,7 @@ if __name__ == '__main__':
     image_path = args.image_path
     checkpoint_path = args.tf_checkpoint_path
     output_dir = args.output_dir
+    model_name = args.model_name
     
     if not os.path.exists(image_path):
         raise ValueError('`image_path` does not exist.')
@@ -99,7 +102,12 @@ if __name__ == '__main__':
     
     
     # PyTorch prediction
-    model = xception.Xception65(num_classes=1001)
+    if model_name == 'xception_41':
+        model = xception.Xception41(num_classes=1001)
+    elif model_name == 'xception_71':
+        model = xception.Xception71(num_classes=1001)
+    else:
+        model = xception.Xception65(num_classes=1001)
     converter.convert(model, checkpoint_path)
     model.eval()
     with torch.no_grad():
@@ -117,12 +125,22 @@ if __name__ == '__main__':
     
     
     # Test converted xception model
-    xception_65 = xception.xception_65(num_classes=1001, 
-                                       pretrained=True,
-                                       checkpoint_path=output_path)
-    xception_65.eval()
+    if model_name == 'xception_41':
+        xception_ = xception.xception_41(num_classes=1001, 
+                                         pretrained=True,
+                                         checkpoint_path=output_path)
+    elif model_name == 'xception_71':
+        xception_ = xception.xception_71(num_classes=1001, 
+                                         pretrained=True,
+                                         checkpoint_path=output_path)
+    else:
+        xception_ = xception.xception_65(num_classes=1001, 
+                                         pretrained=True,
+                                         checkpoint_path=output_path)
+
+    xception_.eval()
     with torch.no_grad():
-        logits_pth = torch.nn.functional.softmax(xception_65(images_pth), dim=1)
+        logits_pth = torch.nn.functional.softmax(xception_(images_pth), dim=1)
         logits_pth = logits_pth.data.cpu().numpy().squeeze(axis=2).squeeze(axis=2)
         labels_pth = np.argmax(logits_pth, axis=1)
         print('PyTorch prediction:')
