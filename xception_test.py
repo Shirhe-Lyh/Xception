@@ -79,8 +79,15 @@ if __name__ == '__main__':
     inputs = tf.placeholder(tf.float32, shape=[None, 299, 299, 3], name='inputs')
     
     with slim.arg_scope(xception_tf.xception_arg_scope()):
-        net, end_points = xception_tf.xception_65(inputs, num_classes=1001,
-                                                  is_training=False)
+        if model_name == 'xception_41':
+            net, end_points = xception_tf.xception_41(inputs, num_classes=1001,
+                                                      is_training=False)
+        elif model_name == 'xception_71':
+            net, end_points = xception_tf.xception_71(inputs, num_classes=1001,
+                                                      is_training=False)
+        else:
+            net, end_points = xception_tf.xception_65(inputs, num_classes=1001,
+                                                      is_training=False)
     predictions = tf.squeeze(end_points.get('predictions'), axis=[1, 2])
     classes = tf.argmax(predictions, axis=1)
     
