@@ -26,7 +26,7 @@ First, you need to download the **official pretrained weights** at the bottom of
 ```
 python3 xception_test.py --tf_checkpoint_path "xxxx.....xxx/model.ckpt" --model_name "xception_xx"
 ```
-You will find a new created folder 'pretrained_models' where the output pytorch model file is stored, and print a few lines in console like this:
+You will find a new created folder 'pretrained_models' where the output pytorch model file is stored, and print a few lines in console like this (if model_name is not specified or model_name == xception_65):
 ```
 TensorFlow predicion:
 [286]
