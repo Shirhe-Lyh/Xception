@@ -601,8 +601,7 @@ def Xception41(num_classes=None,
                     output_stride=output_stride, scope=scope)
     
     
-def xception_41(inputs,
-                num_classes=None,
+def xception_41(num_classes=None,
                 global_pool=True,
                 keep_prob=0.5,
                 output_stride=None,
@@ -617,7 +616,7 @@ def xception_41(inputs,
                           scope=scope)
     if pretrained:
         _load_state_dict(xception, num_classes, checkpoint_path)
-    return xception(inputs)
+    return xception
 
 
 def Xception65(num_classes=None,
